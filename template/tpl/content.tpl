@@ -1,12 +1,19 @@
     {include "header.tpl"}
+
+    <div class="preloader">
+        <div class="preloader__row">
+            <div class="preloader__item"></div>
+            <div class="preloader__item"></div>
+        </div>
+    </div>
      <!-- HEADER -->
       <header>
          <div class="jumbotron">
            <div class="container">
-              <div class="row">
+              <div class="row flex">
                     <div class="col-xs-12 col-sm-7">
                             <h1>Парсер-агрегатор прайс-листа</h1>
-                            <p>Решение, которое позволит периодически распарсивать некий прайс-лист (прилагается для примера), в котором есть наименования товаров, и их цена.</p>
+                            <p>Решение, которое позволит периодически распарсивать некий прайс-лист, в котором есть наименования товаров, и их цена.</p>
                     </div>
                     <div class="col-xs-12 col-sm-5">
                     <form action="" id="price-list-form" role="form" method="post" enctype="multipart/form-data">

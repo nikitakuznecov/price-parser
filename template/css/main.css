@@ -11532,11 +11532,112 @@ body .jGrowl-notification {
   color: #fff;
   font-size: 14px;
 }
-body .jGrowl-notification .red_theme{
+body .jGrowl-notification.red_theme {
   background-color: brown;
 }
 body .jGrowl.top-right {
   right: 0;
   top: 0;
   width: 100%;
+}
+.btn {
+  border-radius: 0;
+  font-weight: normal;
+  height: auto;
+  min-height: 50px;
+}
+.panel .flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (max-width: 1200px) {
+  .panel .flex {
+    display: block;
+  }
+}
+.panel .item-form button {
+  width: 100%;
+}
+.panel .item-form:last-child {
+  text-align: right;
+}
+.panel .item-form:nth-child(2) {
+  text-align: center;
+}
+.panel .item-form:nth-child(3) {
+  text-align: center;
+}
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > td {
+  vertical-align: middle;
+}
+.jumbotron .flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.preloader {
+  /*фиксированное позиционирование*/
+  position: fixed;
+  /* координаты положения */
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* фоновый цвет элемента */
+  background: rgba(224, 224, 224, 0.7);
+  /* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
+  z-index: 1001;
+}
+.preloader__row {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  margin-top: -35px;
+  margin-left: -35px;
+  text-align: center;
+  animation: preloader-rotate 2s infinite linear;
+}
+.preloader__item {
+  position: absolute;
+  display: inline-block;
+  top: 0;
+  background-color: #337ab7;
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  animation: preloader-bounce 2s infinite ease-in-out;
+}
+.preloader__item:last-child {
+  top: auto;
+  bottom: 0;
+  animation-delay: -1s;
+}
+@keyframes preloader-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes preloader-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+}
+.loaded_hiding .preloader {
+  transition: 0.3s opacity;
+  opacity: 0;
+}
+.loaded .preloader {
+  display: none;
 }

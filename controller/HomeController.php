@@ -241,6 +241,32 @@ class HomeController extends Controller
 
     }
 
+    public function lastThree()
+    {
+        print(json_encode(array('Success' => true, 'Message' => 'Наименований товаров за предыдущие 3 часа', 'arrResponse' => '')));
+    }
+
+    public function middlePrice()
+    {
+        print(json_encode(array('Success' => true, 'Message' => 'Средняя цена товара за сутки', 'arrResponse' => '')));
+    }
+
+    public function periodPrice()
+    {
+        print(json_encode(array('Success' => true, 'Message' => 'Показать 3 товара с минимальной ценой, за промежуток времени с - по', 'arrResponse' => '')));
+    }
+
+    public function reset()
+    {
+        $fenom = $this->di->get('Fenom');
+
+        $this->getAListOfProducts();
+
+        $result = $fenom->fetch("table-row.tpl", $this->getProducts());
+
+        print(json_encode(array('Success' => true, 'Message' => 'Фильтр сброшен', 'arrResponse' => $result)));
+    }
+
 }
 
 ?>
