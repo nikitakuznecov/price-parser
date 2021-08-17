@@ -1,0 +1,345 @@
+// out: ../css/main.css, sourcemap: true, compress: true
+@import 'bootstrap/bootstrap.less';
+@import 'awesome/fontawesome.less';
+@import 'awesome/regular.less';
+@import 'awesome/solid.less';
+@import 'awesome/brands.less';
+@import 'variables.less';
+
+/*============= ==============================
+  ADDITIONAL CLASSES
+===========================================*/
+body {
+  min-width: 320px;
+  font-family: @ubuntu;
+  font-style: normal; 
+  font-weight: normal;
+  font-size: 16px;
+  color: #727272;
+
+  @media(max-width: 767px){
+    font-size:14px;
+   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family:@ubuntu;
+    color:#35477D;
+    display:block;
+    font-weight:bold;
+}
+
+  @media (min-width: 1170px){
+    h1,.h1 {
+      font-size: 36px;
+    }
+    h2 {
+      font-size: 28px;
+    }
+    h3 {
+      font-size: 24px;
+    }
+  }
+
+  @media (max-width: 1170px){
+    h1,.h1 {
+      font-size: 32px;
+    }
+    h2 {
+      font-size: 26px;
+    }
+    h3 {
+      font-size: 22px;
+    }
+  }
+  @media (max-width: 767px){
+    h1,.h1 {
+      font-size: 28px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+    h3 {
+      font-size: 18px;
+    }
+  }
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  a{
+    color:#02457A;
+    &:hover{
+      color:#02457A;
+    }
+  }
+  a:focus {
+    outline: none;
+  }
+
+  input, textarea {
+    border: none;
+    padding: 7px 20px;
+    border-radius: 5px;
+    &:-webkit-input-placeholder { /* Chrome/Opera/Safari */
+     color:#434B53;
+    }
+    &:-moz-placeholder { /* Firefox 19+ */
+     color:#434B53;
+    }
+    &:-ms-input-placeholder { /* IE 10+ */
+     color:#434B53;
+    }
+    &:-moz-placeholder { /* Firefox 18- */
+     color:#434B53;
+    }
+  }
+}
+
+.table-responsive {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+table {
+  width: 100%;
+  tr {
+    height: 70px;
+
+    &:nth-child(2n-1){
+      background-color: rgba(221, 221, 221, 0.5);
+    }
+
+    th {
+      padding: 5px 10px;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 18px;
+      font-family: @ubuntu;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 5px 10px;
+      vertical-align: middle;
+    }
+  }
+}
+
+.clear {clear: both;}
+
+.container {
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+  overflow: hidden;
+  height: auto;
+
+
+  @media (min-width: 1170px){
+    width: 1170px;
+  }
+  @media (min-width: 768px) and (max-width: 1170px){
+    width: 768px;
+  }
+  @media (max-width: 767px){
+    width: 100%;
+    max-width: 480px;
+  }
+
+  margin: 0 auto;
+  display: block;
+}
+
+.btn {
+  height: 35px;
+  padding: 5px 15px;
+  -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+
+    .link-text {
+      text-decoration: underline;
+    }
+}
+
+a {
+  color: #28AAC3;
+}
+
+.justifyfull {
+  text-align: justify;
+}
+.justifyright {
+  text-align: right;
+}
+
+
+form {
+  input.error, textarea.error {
+    box-shadow: 0 0 10px rgba(216, 3, 3, 0.5)
+  }
+  input.checkbox {
+    width: auto;
+    height: auto;
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 0;
+  }
+
+  .captcha-item > div {margin: 0 auto}
+
+
+  textarea,  textarea.form-control{
+    height: 35px;
+    -webkit-transition: all 0.3s ease-out;
+      -moz-transition: all 0.3s ease-out;
+      -o-transition: all 0.3s ease-out;
+      transition: all 0.3s ease-out;
+
+    &:focus {
+      height: 100px;
+    }
+  }
+}
+
+/* --- inline catalog --- */
+.col-xs-6-di, .col-xs-3-di, .col-xs-4-di,
+.col-sm-6-di, .col-sm-8-di, .col-sm-3-di, .col-sm-4-di,
+.col-md-6-di, .col-md-3-di, .col-md-4-di,
+.col-lg-6-di, .col-lg-3-di, .col-lg-4-di {
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.col-xs-6-di {
+  width: ~"calc(50% - 2px)";
+  width: ~"-moz-calc(50% - 2px)";
+}
+.col-xs-3-di {
+  width: ~"calc(25% - 3px)";
+  width: ~"-moz-calc(25% - 3px)";
+}
+.col-xs-4-di {
+  width: ~"calc(33.28% - 2px)";
+  width: ~"-moz-calc(33.28% - 2px)";
+}
+@media (min-width: 768px){
+  .col-sm-6-di {
+    width: ~"calc(50% - 2px)";
+    width: ~"-moz-calc(50% - 2px)";
+  }
+  .col-sm-3-di {
+    width: ~"calc(25% - 3px)";
+    width: ~"-moz-calc(25% - 3px)";
+  }
+  .col-sm-4-di {
+    width: ~"calc(33.2% - 2px)";
+    width: ~"-moz-calc(33.2% - 2px)";
+  }
+  .col-sm-8-di {
+    width: ~"calc(67% - 5px)";
+    width: ~"-moz-calc(67% - 5px)";
+  }
+}
+@media (min-width: 992px){
+  .col-md-6-di {
+    width: ~"calc(50% - 2px)";
+    width: ~"-moz-calc(50% - 2px)";
+  }
+  .col-md-3-di {
+    width: ~"calc(25% - 3px)";
+    width: ~"-moz-calc(25% - 3px)";
+  }
+  .col-md-4-di {
+    width: ~"calc(33.28% - 3px)";
+    width: ~"-moz-calc(33.28% - 2px)";
+  }
+}
+@media (min-width: 1200px){
+  .col-lg-6-di {
+    width: ~"calc(50% - 2px)";
+    width: ~"-moz-calc(50% - 2px)";
+  }
+  .col-lg-3-di {
+    width: ~"calc(25% - 3px)";
+    width: ~"-moz-calc(25% - 3px)";
+  }
+  .col-lg-4-di {
+    width: ~"calc(33.28% - 2px)";
+    width: ~"-moz-calc(33.28% - 2px)";
+  }
+}
+strong{
+  color:#02457A;
+}
+
+.content{
+  display: block;
+  overflow: hidden;
+  height: auto;
+  float: none;
+  margin: 0 auto;
+  min-height: 600px;  
+}
+body{
+  table{
+    th{
+      font-size:16px;
+    }
+    tr{
+      td{
+        font-size:14px;
+        text-align: center;
+        vertical-align: middle !important;
+      }
+    }
+  }
+}
+input{
+  min-height:50px;
+}
+label {
+  &.error{
+    font-size: 12px;
+    color: brown;
+    font-weight: normal;
+  }
+}
+
+body .jGrowl-notification {
+  width: 100%;
+  background-color: rgb(28, 165, 28);
+  opacity: .9;
+  zoom: 1;
+  width: 100%;  
+  padding: 15px;
+  margin: 0;
+  text-align: left;
+  display: none;
+  border-radius: 0;
+  min-height: 40px;
+  text-align: center;
+  color: #fff;
+  font-size:14px;
+  &.red_theme{
+    background-color: brown;
+  }
+}
+body .jGrowl.top-right { 
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+.btn{
+  border-radius: 0;
+}
+
+

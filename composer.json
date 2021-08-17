@@ -1,0 +1,22 @@
+{
+    "name": "nk_pvc/price-parser",
+    "description": "Test work",
+    "authors": [
+        {
+            "name": "Nikita Kuznetcov",
+            "email": "nk_pvc@mail.ru"
+        }
+    ],
+    "require": {
+        "fenom/fenom": "^2.12"
+    },
+    "autoload": {
+        "psr-4":{
+            "PParser\\":"price-parser.loc/",
+            "PParser\\Core\\":"core/",
+            "PParser\\Controller\\":"controller/",
+            "PParser\\Model\\":"model/",
+            "PParser\\View\\":"view/"
+        }
+    }
+}
