@@ -360,10 +360,14 @@ body .jGrowl.top-right {
     }
     input{
       width: 100%;
+      font-size: 14px;
     }
     .flex{
       display: flex;
       justify-content: flex-end;
+      @media(max-width:1200px){
+        display: block;
+      }
     }
     &:nth-child(2){
       text-align: center;
@@ -380,6 +384,9 @@ body .jGrowl.top-right {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media(max-width:1200px){
+      display: block;
+    }
   }
 }
 

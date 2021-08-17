@@ -235,7 +235,7 @@ class HomeController extends Controller
 
         $db = $this->di->get('DataBase');
 
-        $query = "SELECT * FROM `product` WHERE `date` > DATE_SUB(NOW(), INTERVAL 3 HOUR)";
+        $query = "SELECT * FROM `product` WHERE `date` >= DATE_SUB(NOW(), INTERVAL 3 HOUR) AND DATE(`date`) = CURRENT_DATE";
 
         $result = $db->select($query);
 
@@ -269,7 +269,7 @@ class HomeController extends Controller
 
         $db = $this->di->get('DataBase');
 
-        $query = "SELECT AVG(`price`) AS 'avg' FROM `product` WHERE `date` > DATE_SUB(NOW(), INTERVAL 24 HOUR)";
+        $query = "SELECT AVG(`price`) AS 'avg' FROM `product` WHERE `date` >= DATE_SUB(NOW(), INTERVAL 24 HOUR) AND DATE(`date`) = CURRENT_DATE";
 
         $result = $db->select($query);
 
@@ -322,7 +322,7 @@ class HomeController extends Controller
 
         $view = $fenom->fetch("table-row.tpl", $this->getProducts());
 
-        print(json_encode(array('Success' => true, 'Message' => 'Товары с минимальной ценой, за промежуток времени с/по -'.count($this->products['Products']).' шт.', 'arrResponse' => $view)));
+        print(json_encode(array('Success' => true, 'Message' => 'Товары с минимальной ценой, за промежуток времени с/по', 'arrResponse' => $view)));
     }
 
     /**

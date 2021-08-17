@@ -11561,10 +11561,16 @@ body .jGrowl.top-right {
 }
 .panel .item-form input {
   width: 100%;
+  font-size: 14px;
 }
 .panel .item-form .flex {
   display: flex;
   justify-content: flex-end;
+}
+@media (max-width: 1200px) {
+  .panel .item-form .flex {
+    display: block;
+  }
 }
 .panel .item-form:nth-child(2) {
   text-align: center;
@@ -11581,6 +11587,11 @@ body .jGrowl.top-right {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+@media (max-width: 1200px) {
+  .jumbotron .flex {
+    display: block;
+  }
 }
 .preloader {
   /*фиксированное позиционирование*/

@@ -13,6 +13,7 @@
                     <input type="date" id="start" class="control" name="trip-start" value="{$date | date : 'Y-m-d'}" min="{$date | date : 'Y-m-d'}">
                 </div>
                 <div class="form-group col-xs-12 col-sm-4">
+                    {set $date = strtotime('+1 days')}
                     <label for="start">По:</label>
                     <input type="date" id="end" name="trip-end" class="control" value="{$date | date : 'Y-m-d'}" min="{$date | date : 'Y-m-d'}">
                 </div>
