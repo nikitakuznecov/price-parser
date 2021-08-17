@@ -66,7 +66,7 @@ class HomeController extends Controller
 
                     $result = $fenom->fetch("table-row.tpl", $this->getProducts());
 
-                    print(json_encode(array('Success' => true, 'Message' => 'Файл успешно загружен! Новых продуктов - '.count($this->getProducts()), 'arrResponse' => $result)));
+                    print(json_encode(array('Success' => true, 'Message' => 'Файл успешно загружен!', 'arrResponse' => $result)));
 
                 } else {
 
