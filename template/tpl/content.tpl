@@ -36,7 +36,7 @@
 
        <!-- MAIN CONTENT -->
        <section class="main">
-            <div class="container content">
+            <div class="container content {if !$Products}hide{/if}">
                   {include "panel.tpl"}
                   {include "table.tpl"}
             </div>

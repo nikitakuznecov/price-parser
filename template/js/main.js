@@ -1,5 +1,7 @@
 $().ready(function() {
 
+	let content = $(".content");
+
 	let form = $("#price-list-form");
 
 	let controls = $(".control");
@@ -9,6 +11,10 @@ $().ready(function() {
 	let middlePrice = $("#middlePrice");
 
 	let periodPrice = $("#periodPrice");
+
+	let start = $("#start");
+
+	let end = $("#end");
 
 	let reset = $("#reset");
 
@@ -49,6 +55,7 @@ $().ready(function() {
 					$.jGrowl(response.data['Message']);
                     $(".table-row").append(response.data['arrResponse']);
                     form[0].reset();
+					content.removeClass('hide');
 					reset.attr('disabled',false);
 				})
 				.catch(function(error) {
@@ -68,10 +75,16 @@ $().ready(function() {
 			url: '/middlePrice'
 		})
 			.then(function(response) {
+
 				document.body.classList.add('loaded');
 				$.jGrowl(response.data['Message']);
-				$(".table-row").append(response.data['arrResponse']);
-				reset.attr('disabled',false);
+				if(response.data['arrResponse']){
+					$(".wrapper-table").html(response.data['arrResponse']);
+					reset.attr('disabled',false);
+				}else{
+					controls.attr('disabled',false);
+				}
+
 			})
 			.catch(function(error) {
 				console.log(error);
@@ -91,7 +104,7 @@ $().ready(function() {
 			.then(function(response) {
 				document.body.classList.add('loaded');
 				$.jGrowl(response.data['Message']);
-				$(".table-row").append(response.data['arrResponse']);
+				$(".table-row").html(response.data['arrResponse']);
 				reset.attr('disabled',false);
 			})
 			.catch(function(error) {
@@ -105,20 +118,33 @@ $().ready(function() {
 	periodPrice.click (function(event) {
 		document.body.classList.remove('loaded');
 		controls.attr('disabled',true);
-		axios({
-			method: 'post',
-			url: '/periodPrice'
-		})
-			.then(function(response) {
-				document.body.classList.add('loaded');
-				$.jGrowl(response.data['Message']);
-				$(".table-row").append(response.data['arrResponse']);
-				reset.attr('disabled',false);
+		if(new Date(start.val()) <= new Date(end.val())){
+			axios({
+				method: 'post',
+				url: '/periodPrice',
+				params: {
+					start:start.val(),
+					end:end.val()
+				},
+				headers: {
+					"Content-Type": "application/json"
+				}
 			})
-			.catch(function(error) {
-				console.log(error);
-				document.body.classList.add('loaded');
-			});
+				.then(function(response) {
+					document.body.classList.add('loaded');
+					$.jGrowl(response.data['Message']);
+					$(".table-row").html(response.data['arrResponse']);
+					reset.attr('disabled',false);
+					console.log(response.data);
+				})
+				.catch(function(error) {
+					console.log(error);
+					document.body.classList.add('loaded');
+				});
+		}else{
+			$.jGrowl("Ошибка! С датами что-то пошло не так!");
+			document.body.classList.add('loaded');
+		}
 
 		event.preventDefault(); // stop form from redirecting to java servlet page
 	});
@@ -132,6 +158,8 @@ $().ready(function() {
 		})
 			.then(function(response) {
 				document.body.classList.add('loaded');
+				$(".alert").addClass('hidden');
+				$(".table").removeClass('hidden');
 				$(".table-row").html(response.data['arrResponse']);
 				$.jGrowl(response.data['Message']);
 				controls.attr('disabled',false);

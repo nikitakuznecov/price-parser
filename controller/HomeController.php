@@ -31,7 +31,7 @@ class HomeController extends Controller
     /**
      * Основной метод загрузки и парсинга файла
      * Загружает файл в директорию /template/files/
-     * Парсит файл и создает модели Product а основе полученных данных
+     * Парсит файл и создает модели Product на основе полученных данных
      * Сохраняет данные в базу данных в таблицу Product
      */
     public function loading()
@@ -197,22 +197,6 @@ class HomeController extends Controller
     }
 
     /**
-     * @return array
-     */
-    public function getProducts(): array
-    {
-        return $this->products;
-    }
-
-    /**
-     * @param array $products
-     */
-    public function setProducts(array $products): void
-    {
-        $this->products['Products'] = $products;
-    }
-
-    /**
      * Получает все данные из таблицы Product
      * Создает модели Product на основе полученных данных
      */
@@ -241,21 +225,109 @@ class HomeController extends Controller
 
     }
 
+    /**
+     * Сколько наименований товаров было выпарсено за предыдущие 3 часа,
+     * относительно текущего времени
+     */
     public function lastThree()
     {
-        print(json_encode(array('Success' => true, 'Message' => 'Наименований товаров за предыдущие 3 часа', 'arrResponse' => '')));
+        $fenom = $this->di->get('Fenom');
+
+        $db = $this->di->get('DataBase');
+
+        $query = "SELECT * FROM `product` WHERE `date` > DATE_SUB(NOW(), INTERVAL 3 HOUR)";
+
+        $result = $db->select($query);
+
+        if ($result) {
+
+            foreach ($result as $key => $value) {
+
+                $product = new Product($value['name'], $value['price']);
+
+                $product->setId($value['id']);
+
+                $product->setDate($value['date']);
+
+                $this->products['Products'][] = $product;
+
+            }
+        }
+
+        $view = $fenom->fetch("table-row.tpl", $this->getProducts());
+
+        print(json_encode(array('Success' => true, 'Message' => 'Товаров было добавлено за предыдущие 3 часа - '.count($this->products['Products']), 'arrResponse' => $view)));
     }
 
+    /**
+     * Находит среднюю цену выпарсенного товара за сутки,
+     * относительно текущего времени
+     */
     public function middlePrice()
     {
-        print(json_encode(array('Success' => true, 'Message' => 'Средняя цена товара за сутки', 'arrResponse' => '')));
+        $fenom = $this->di->get('Fenom');
+
+        $db = $this->di->get('DataBase');
+
+        $query = "SELECT AVG(`price`) AS 'avg' FROM `product` WHERE `date` > DATE_SUB(NOW(), INTERVAL 24 HOUR)";
+
+        $result = $db->select($query);
+
+        if ($result) {
+
+            $view = $fenom->fetch("table.tpl", array('avg'=> (int) $result[0]['avg']));
+
+            print(json_encode(array('Success' => true, 'Message' => 'Cредняя цена выпарсенного товара за сутки - '.(int) $result[0]['avg'].' руб.', 'arrResponse' => $view)));
+
+        }else{
+
+            print(json_encode(array('Success' => true, 'Message' => 'Нет данных для подсчета', 'arrResponse' => '')));
+
+        }
+
     }
 
+    /**
+     * Метод возвращает на страницу 3 товара с минимальной ценой,
+     * за промежуток времени "с - по"
+     */
     public function periodPrice()
     {
-        print(json_encode(array('Success' => true, 'Message' => 'Показать 3 товара с минимальной ценой, за промежуток времени с - по', 'arrResponse' => '')));
+        $fenom = $this->di->get('Fenom');
+
+        $db = $this->di->get('DataBase');
+
+        $request = $this->di->get('Request');
+
+        $get = $request->get;
+
+        $query = "SELECT * FROM `product` WHERE `date` >= {?} and `date` <= {?} ORDER BY `price` ASC LIMIT 3";
+
+        $result = $db->select($query,array($get['start'],$get['end']));
+
+        if ($result) {
+
+            foreach ($result as $key => $value) {
+
+                $product = new Product($value['name'], $value['price']);
+
+                $product->setId($value['id']);
+
+                $product->setDate($value['date']);
+
+                $this->products['Products'][] = $product;
+
+            }
+        }
+
+        $view = $fenom->fetch("table-row.tpl", $this->getProducts());
+
+        print(json_encode(array('Success' => true, 'Message' => 'Товары с минимальной ценой, за промежуток времени с/по -'.count($this->products['Products']).' шт.', 'arrResponse' => $view)));
     }
 
+    /**
+     * Возвращает все товары на страницу
+     */
     public function reset()
     {
         $fenom = $this->di->get('Fenom');
@@ -265,6 +337,22 @@ class HomeController extends Controller
         $result = $fenom->fetch("table-row.tpl", $this->getProducts());
 
         print(json_encode(array('Success' => true, 'Message' => 'Фильтр сброшен', 'arrResponse' => $result)));
+    }
+
+    /**
+     * @return array
+     */
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param array $products
+     */
+    public function setProducts(array $products): void
+    {
+        $this->products['Products'] = $products;
     }
 
 }

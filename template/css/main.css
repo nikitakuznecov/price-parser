@@ -11559,13 +11559,14 @@ body .jGrowl.top-right {
 .panel .item-form button {
   width: 100%;
 }
-.panel .item-form:last-child {
-  text-align: right;
+.panel .item-form input {
+  width: 100%;
+}
+.panel .item-form .flex {
+  display: flex;
+  justify-content: flex-end;
 }
 .panel .item-form:nth-child(2) {
-  text-align: center;
-}
-.panel .item-form:nth-child(3) {
   text-align: center;
 }
 .table > caption + thead > tr:first-child > th,
